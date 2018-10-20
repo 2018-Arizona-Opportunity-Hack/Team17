@@ -22,3 +22,19 @@ def constraint(constraint_key):
             if j in adict[i]:
                 T[i,j] = 1
     return T
+
+def relationship(relationship_key):
+    adict = {}
+    key_types = []
+    N = 0
+    for x in loaded_json:
+        val = x[relationship_key]
+        adict[x['id']] = val
+        N+= 1
+        if val not in key_types:
+            key_types.append(val)
+    R = np.zeros(N, len(key_types))
+    for i in range(N):
+        j = key_types.index(adict[i])
+        R[i, j] = 1
+    return R
