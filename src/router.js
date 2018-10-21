@@ -69,13 +69,35 @@ router.beforeEach((to, from, next) => {
     }
   } else if (to.matched.some(record => record.meta.requiresAdmin)) {
     if (firebase.auth().currentUser) {
-// {
-//   email
-//   admin
-//   eventsthey
-// }
+    // {
+    //   email
+    //   admin
+    //   address
+    //   zipcodeW
+    //   showedup
+    //   signedup
+    //   endorsements
+    // }
       db.collection('users').where('email', '==', firebase.auth().currentUser.email).get()
-      .then()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          if(doc.data().admin == true) {
+            next({
+              path: '/admin',
+              query: {
+                redirect: to.fullPath
+              }
+            });
+          } else {
+            next({
+              path: '/',
+              query: {
+                redirect: to.fullPath
+              }
+            });
+          }
+        })
+      })
     } else {
       next();
     }
