@@ -18,21 +18,22 @@ def compute_rank_and_size(T):
 
     keys = T.keys()
 
-    counts = [0 for _ in keys]
-    ranks = [0 for _ in keys]
+    counts = [0 for _ in range(len(keys)-1)]
+    ranks = [0 for _ in range(len(keys)-1)]
 
     keys = T.keys()
     for key in keys:
+        if key == "shape":
+            continue
         i, _ = key # constraints only have keys of the form (n, n).
 
-        rnk = np.linalg.matrix_rank(T[key])
         count = T[key][0].shape[0]
         counts[i] = count
-        ranks[i] = rnk
+        ranks[i] = len(T[key])
 
     return counts, ranks
 
-def compute_distance_matrix(R, T, loop=[1, 2, 3]):
+def compute_distance_matrix(R, T, loop=[0, 1, 2]):
     """
         R is a dictionary of relational matrices, such that R[(m, n)] corresponds to the
         relational matrix between node m and n.
@@ -49,25 +50,30 @@ def compute_distance_matrix(R, T, loop=[1, 2, 3]):
     """
 
     ns, cs = compute_rank_and_size(T)
-    G, S = dfmf.dfmf(R, T, ns, cs)
-
+    print(ns, cs)
+    G, S = dfmf.dfmf(R, T, ns, cs, init_typ="random", compute_err=True, max_iter=10,
+                system_eps=None)
     # compute a loop
-    for k in range(1, len(path) + 1):
-        I = path[k-1]
-        J = path[k % len(path)]
+    C = 1.0
+    for k in range(1, len(loop) + 1):
+        I = loop[k-1]
+        J = loop[k % len(loop)]
 
         G_I = G[(I, I)]
         S_IJ = S[(I, J)]
         G_Jt = G[(J, J)].T
 
-        C = G_I * S_IJ * G_Jt
+        if k == 1:
+            C = G_I.dot(S_IJ).dot(G_Jt)
+        else:
+            C = C.dot(G_I.dot(S_IJ).dot(G_Jt))
 
     for i in range(C.shape[0]): # make it a
         d = C[i, i]
-        C[i] = C[i] - diag/2.0
-        C[:, i] = C[:, i] - diag/2.0
+        C[i] = C[i] - d/2.0
+        C[:, i] = C[:, i] - d/2.0
 
-    return C
+    return np.abs(C)
 
 def cluster_tsne(D, dim=2, THRESHOLD=10000):
     """

@@ -251,7 +251,7 @@ def dfmf(R, Theta, ns, cs, max_iter=100, init_typ='random_c',
 
     obj = []
     for itr in xrange(max_iter):
-        if itr > 1 and target_eps and err_target[1] - err_target[0] < target_eps[1]:
+        if itr > 1 and target_eps and np.abs(err_target[1] - err_target[0]) < target_eps[1]:
             _log.info('[%5.4f - %5.4f < %5.4f] Early termination | Target matrix' %
                        (err_target[1], err_target[0], target_eps[1]))
             break
