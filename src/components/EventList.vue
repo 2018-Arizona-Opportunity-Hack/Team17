@@ -6,6 +6,7 @@
         <v-divider></v-divider>
       </div>
     </v-card>
+    <v-btn class = "more" block color="grey" dark>More</v-btn>
   </v-container>
 </template>
 
@@ -20,7 +21,7 @@ export default {
     }
   },
   components: {
-    Event 
+    Event
   },
   mounted: function() {
     this.events = this.getEvents();

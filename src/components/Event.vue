@@ -25,7 +25,7 @@ import Alert from './Alert';
 export default {
   props: ['name', 'date', 'volunteersNeeded', 'signedUp'],
   components: {
-    Alert 
+    Alert
   },
 }
 </script>

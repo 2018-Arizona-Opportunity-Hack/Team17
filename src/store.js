@@ -17,7 +17,25 @@ export default new Vuex.Store({
         date: "Tuesday, July 31 2018",
         volunteersNeeded: 12,
         signedUp: true,
-      }
+      },
+      {
+        name: "Dog Shelter",
+        date: "Tuesday, July 31 2018",
+        volunteersNeeded: 2,
+        signedUp: false,
+      },
+      {
+        name: "Dog Shelter",
+        date: "Tuesday, July 31 2018",
+        volunteersNeeded: 2,
+        signedUp: false,
+      },
+      {
+        name: "Dog Shelter",
+        date: "Tuesday, July 31 2018",
+        volunteersNeeded: 2,
+        signedUp: false,
+      },
     ]
   },
   getters: {
