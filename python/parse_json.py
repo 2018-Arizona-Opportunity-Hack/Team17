@@ -7,6 +7,7 @@ import json
 import requests
 import matplotlib.pyplot as plt
 import sklearn
+import hdb_scan
 
 from interpret_data import compute_distance_matrix, cluster_tsne
 
@@ -122,11 +123,16 @@ def synth_dfmf_test(N, upper_size=1000, lower_size=50):
                 R[(j, i)] = R_ij.T
 
     C = compute_distance_matrix(R, T)
-    ydata= cluster_tsne(C, dim=2)
-
-    # expected result: normal distribution
+    print("FINISHED COMPUTING C")
+    ydata = cluster_tsne(C, dim=2)
+    print("FINISHED TSNE")
     plt.plot(ydata[:,0],ydata[:,1], "ro")
     plt.title("FIGURE 2")
+    plt.show()
+    print("CLUSTERING")
+    data = hdb_scan.hdb_scan(ydata)
+    plt.plot(data, "ro")
+    plt.title("HDB SCAN")
     plt.show()
 
 if __name__ == "__main__":
