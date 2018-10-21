@@ -10,6 +10,8 @@ var logger = require('morgan');
 var schedule = require('node-schedule');
 var firebase = require('firebase');
 var spawn = require('child_process').spawn;
+var Email = require('email-templates');
+var Imap = require('imap');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -45,11 +47,46 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// timer call
-app.use(/[T,t]imer/, (req, res) => {
-  const DAYS_BEFORE = 2; // remind volunteers days before the target date
+// sends emails to volunteers
+function sendEmail(sender, volunteer, event, template) {
+  var em = new Email({
+    message: {
+      from: sender
+    },
+    // send: true // uncomment if not debugging
+    transport: {
+      jsonTransport = true
+    },
+    views: {
+      options: {
+        extensions: "ejs"
+      }
+    }
+  });
+
+  em.send({
+    template: template,
+    message: {
+      to: volunteer["email"]
+    },
+    locals: {
+      name: volunteer["name"],
+      date: event["date"],
+      address = event["address"]
+    }
+  });
+}
+
+function openInbox(cb) {
+  imap.openBox('INBOX', true, cb);
+}
+
+// timer call for checking if reminder date is nearing
+app.post(/[T,t]imer/, (req, res) => {
+  const DAYS_BEFORE = 7; // remind volunteers days before the target date
   const DATA_PATH = "";
   const MAX_HIGH_SAMP = 0.7; // only allow 70% of options to be from most reliable
+  const SENDER = "suhaskvittal@gmail.com";
 
   /*
     name, address, zipcode, waitlist, volunteers-needed, description, list
@@ -60,14 +97,15 @@ app.use(/[T,t]imer/, (req, res) => {
     the waitlist to volunteers that may not show up.
   */
 
-  var date = new Date(req["date"]); // the target date
+  var event = req.body["event"]
+  var date = new Date(event["date"]); // the target date
 
   var reminderDate = date - DAYS_BEFORE;
-  var job = schedule.scheduleJob(reminderDate, function() {
+  var remindJob = schedule.scheduleJob(reminderDate, function() {
     var database = firebase.database();
     var data = database.ref(DATA_PATH).once('value').then((snapshot) => {
       var volunteers = data.val()["volunteers"];
-      // compute the most reliable volunteer
+      // compute the most reliable volunteers
       var modelVolunteers = [];
       var maxEvents = 0;
       var uuids = []
@@ -105,6 +143,8 @@ app.use(/[T,t]imer/, (req, res) => {
         }
 
         // now find alternatives
+        // note that all the alternatives aren't the best possible ones; we still
+        // want to give volunteers with non-pristine records a chance as well
         numHigh = Math.floor(MAX_HIGH_SAMP * qvols.length);
         numLow = qvols.length - numLow;
         alt = []
@@ -125,16 +165,26 @@ app.use(/[T,t]imer/, (req, res) => {
           }
         }
 
-        // create json object to return
-        var tmpObj = [
-          "questionable":qvols,
-          "alternatives":alt
-        ];
+        /* now handle the mailing stage
+          here we should send emails to questionable volunteers and await a response.
+          a day later we should check if we received an email, and if that email
+          is a negative response. If we didn't receive anything or received a
+          negative response, then we should reach out to alternative volunteers.
+        */
 
-        res.send(tmpObj);
+        for (var p in qvols) {
+          sendEmail(SENDER, p, event, "reminder");
+        }
+
+        var checkBackDate = reminderDate + 3;
+        var checkJob = schedule.scheduleJob(checkBackDate, () => {
+
+        });
       });
     });
   });
 });
+
+
 
 module.exports = app;

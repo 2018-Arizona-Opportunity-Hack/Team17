@@ -26,7 +26,6 @@ def generate_constraints(json):
     # collect volunteer constraints and relations
     constraints = ["endorsements"]
     relations = ["zipcode", "events"]
-    enumeration = {"endorsements":0, "zipcode":1, "events":2}
 
     cnst_N = [0 for _ in constraints]
     rel_N = [0 for _ in relations]
@@ -57,6 +56,8 @@ def generate_relations(json):
     R = {"shape": (3, 3)}
     from_nodes = ["volunteers", "events"]
     to_nodes = ["zipcode", "events"]
+
+    enumeration = {"volunteers":0, "zipcode":1, "events":2}
 
     for a in range(len(from_nodes)):
         s = from_nodes[a]
