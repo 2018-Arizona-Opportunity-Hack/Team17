@@ -1,24 +1,19 @@
 <template>
-  <!-- <v-container>
-    <v-flex xs8>
-    <v-btn v-on:click="register" color="success">Signup</v-btn>
-    </v-flex>
-    <v-flex xs4>
-      <p> Requirements <p>
-  </v-container> -->
-  <div id="view-event">
+  <div id="EventInfo">
     <ul class="collection with-header">
       <li class="collection-header"><h4>{{name}}</h4></li>
+      <li class="collection-item">event ID#: {{event_id}} </li>
       <li class="collection-item">description: {{description}}</li>
-      <li class="collection-item">name: {{description}}</li>
-      <li class="collection-item">zipcode: {{position}}</li>
+      <li class="collection-item">address: {{address}}</li>
+      <li class="collection-item">zipcode: {{zipcode}}</li>
+
     </ul>
-    <router-link to="/" class="btn grey">Back</router-link>
-    <button @click="deleteEmployee" class="btn red">Delete</button>
-    <!--I have no idea what the bottom section does; figure it out -->
+    <router-link to="/Events" class="btn grey">Back</router-link>
+    <!-- <button @click="deleteevent" class="btn red">Delete</button> -->
+
     <div class="fixed-action-btn">
-      <router-link v-bind:to="{ name: 'edit-event', params: { event_id: event_id }}" class="btn-floating btn-large red">
-        <i class="fa fa-pencil"></i>
+      <router-link v-bind:to="{ name: 'EventSignup', params: { event_id: event_id }}" class="btn-floating btn-large red">
+        <v-icon>home</v-icon>
       </router-link>
     </div>
   </div>
@@ -27,14 +22,13 @@
 <script>
 import db from '../components/firebaseInit';
 export default {
-  name: 'Events',
+  name: 'EventInfo',
   data() {
     return {
       event_id: null,
       name: null,
-      description: null.
-      zipcode: null,
-      volNeed: null
+      dept: null,
+      position: null
     };
   },
   beforeRouteEnter(to, from, next) {
@@ -48,8 +42,10 @@ export default {
             vm.event_id = doc.data().event_id;
             vm.name = doc.data().name;
             vm.description = doc.data().description;
+            vm.address = doc.data().address;
             vm.zipcode = doc.data().zipcode;
-            vm.volNeed = doc.data().volNeed;
+            vm.volNeeded = doc.data().volNeeded;
+            vm.date = doc.data().date;
           });
         });
       });
@@ -65,14 +61,35 @@ export default {
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
-            this.employee_id = doc.data().employee_id;
+            this.event_id = doc.data().event_id;
             this.name = doc.data().name;
             this.description = doc.data().description;
+            this.address = doc.data().address;
             this.zipcode = doc.data().zipcode;
-            this.volNeed = doc.data().volNeed;
+            this.volNeeded = doc.data().volNeeded;
+            this.date = doc.data().date;
           });
         });
-    }
+    },
+    // deleteEvent() {
+    //   if (confirm('Are you sure?')) {
+    //     db
+    //       .collection('events')
+    //       .where('event_id', '==', this.$route.params.event_id)
+    //       .get()
+    //       .then(querySnapshot => {
+    //         querySnapshot.forEach(doc => {
+    //           doc.ref.delete();
+    //           this.$router.push('/');
+    //         });
+    //       });
+    //   }
+    // }
   }
 };
 </script>
+<style>
+  #EventInfo {
+    padding-top: 100px;
+  }
+</style>

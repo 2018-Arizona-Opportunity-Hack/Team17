@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-//import Events from '@/views/Events'
+import Events from '@/views/Events'
+import EventInfo from '@/views/EventInfo'
+
 import db from './components/firebaseInit';
 import firebase from 'firebase';
 Vue.use(Router)
@@ -17,6 +19,16 @@ let router = new Router({
       path:'/events',
       name: 'Events',
       component: () => import('./views/Events.vue'),
+    },
+    {
+      path:'/events/:event_id',
+      name: 'EventInfo',
+      component: () => import('./views/EventInfo.vue'),
+    },
+    {
+      path:'/events/:event_id/Signup',
+      name: 'EventSignup',
+      component: () => import('./views/AddEvent.vue'),
     },
     {
       path:'/signup',

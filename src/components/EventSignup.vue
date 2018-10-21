@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 <button @click="loadMyModal"></button>
 </template>
 <script>
@@ -18,4 +18,4 @@ export default {
     }
   }
 }
-</script>
+</script> -->

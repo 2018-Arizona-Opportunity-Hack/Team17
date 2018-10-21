@@ -37,7 +37,6 @@ export default {
           'zipcode':doc.data().zipcode,
           'address':doc.data().address,
           'volNeeded':doc.data().volNeeded,
-
         }
         this.events.push(data)
       })
