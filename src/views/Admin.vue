@@ -15,14 +15,6 @@
           </v-flex>
           <v-flex xs36 sm36 md18>
             <v-text-field
-              label="Position"
-              v-model="position"
-              placeholder="Dog Brusher"
-              box
-            ></v-text-field>
-          </v-flex>
-          <v-flex xs36 sm36 md18>
-            <v-text-field
               label="organization"
               v-model="organization"
               placeholder="Some ORG"

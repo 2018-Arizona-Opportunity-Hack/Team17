@@ -193,7 +193,10 @@ export default {
             phone: this.userPhone
           })
           .then(() => {
-            // db.collection('volunteer_event').
+            db.collection('volunteer_event').add({
+              event_id: this.event_id,
+              volunteer_id: this.userID
+            })
             alert("Signed up!");
             this.$router.push({name: 'Home'});
           });

@@ -18,6 +18,11 @@ let router = new Router({
       component: () => import('./views/Home.vue'),
     },
     {
+      path:'/import',
+      name: 'Import',
+      component: () => import('./views/Import.vue')
+    },
+    {
       path:'/events',
       name: 'Events',
       component: () => import('./views/Events.vue'),
@@ -27,11 +32,6 @@ let router = new Router({
       name: 'EventInfo',
       component: () => import('./views/EventInfo.vue'),
     },
-    // {
-    //   path:'/events/:event_id/Signup',
-    //   name: 'EventSignup',
-    //   component: () => import('./views/AddEvent.vue'),
-    // },
     {
       path:'/signup',
       name: 'Signup',
@@ -52,9 +52,6 @@ let router = new Router({
       path:'/admin',
       name:'Admin',
       component: () => import('./views/Admin.vue'),
-      meta: {
-        requiresAdmin: true
-      }
     }
   ]
 });

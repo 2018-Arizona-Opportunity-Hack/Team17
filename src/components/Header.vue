@@ -24,6 +24,7 @@
             :key="index"
           >
             <v-list-tile-title v-if="item.title !== 'Log out'" :to="{ name: item.link }">{{ item.title }}</v-list-tile-title>
+            <v-list-tile-title v-if="item.title == 'Admin' && hasAdmin" to="{name: title}">{{ item.title }}</v-list-tile-title>
             <v-list-tile-title v-if="item.title == 'Log out'" v-on:click="logout()">{{ item.title }}</v-list-tile-title>
           </v-list-tile>
         </v-list>
@@ -35,13 +36,14 @@
 </template>
 
 <script>
+import db from '../components/firebaseInit';
 import firebase from 'firebase';
 export default {
   data: () => ({
+    hasAdmin: false,
     isLoggedIn: false,
     currentUser: false,
     items: [
-      { title: 'Admin', link: "Admin" },
       { title: 'Settings', link: "Settings" },
       { title: 'Log out' }
     ]
@@ -50,6 +52,19 @@ export default {
     if (firebase.auth().currentUser) {
       this.isLoggedIn = true;
       this.currentUser = firebase.auth().currentUser.email;
+    }
+  },
+  mounted: function () {
+    if (firebase.auth().currentUser) {
+      db
+        .collection('volunteers')
+        .where('email', '==', this.currentUser)
+        .get()
+        .then(querySnapshot => {
+          console.log(querySnapshot)
+          querySnapshot.forEach(doc => {
+          })
+        })
     }
   },
   methods: {
