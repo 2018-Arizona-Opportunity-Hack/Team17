@@ -54,8 +54,6 @@
           .catch(error => {
             console.error('Error adding event: ', error)
           })
-            // name: this.name,
-            // zipcode: this.zipcode,
         }
       }
     }

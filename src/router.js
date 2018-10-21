@@ -122,6 +122,10 @@ router.beforeEach((to, from, next) => {
           }
         })
       })
+      db.collection('volunteers').add({
+        volunteer_id: ,
+        email: this.email,
+      })
     } else {
       next();
     }
