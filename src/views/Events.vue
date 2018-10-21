@@ -1,52 +1,24 @@
 <template>
-  <v-container>
-      <div id = "events">
-        <ul class = "collection with-header">
-          <li class="collection-header"><h4>Events</h4></li>
-          <li v-for="event in events" v-bind:key="event.id"
-          class="collection-item">
-          <div class= "chip">{{events.volNeeded}}</div>
-            {{event.event_id}}:{{event.name}}
-      <router-link class="secondary-content" :to = "{name: 'EventInfo', params: {event_id: event.event_id}}">
+  <v-container class="events">
+      <EventList moreButton="false" number="20" />
+      <!-- <router-link class="secondary-content" :to = "{name: 'EventInfo', params: {event_id: event.event_id}}">
             <v-icon>home</v-icon>
-      </router-link>
-        </li>
-        </ul>
-      </div>
+      </router-link> -->
   </v-container>
 </template>
 
 <script>
 import db from '../components/firebaseInit'
+import EventList from '../components/EventList'
 export default {
   name: 'events',
-  data () {
-    return {
-      events: []
-    }
-  },
-  created () {
-    db.collection('events').get().then
-    (querySnapshot => {
-      querySnapshot.forEach(doc => {
-        const data = {
-          'id': doc.id,
-          'event_id': doc.data().event_id,
-          'name': doc.data().name,
-          'description':doc.data().description,
-          'zipcode':doc.data().zipcode,
-          'address':doc.data().address,
-          'volNeeded':doc.data().volNeeded,
-
-        }
-        this.events.push(data)
-      })
-    })
+  components: {
+    EventList
   }
 }
 </script>
 <style>
-  #events {
+  .events {
     padding-top: 50px;
   }
 </style>

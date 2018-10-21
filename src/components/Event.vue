@@ -12,8 +12,8 @@
       </v-list-tile-content>
 
       <v-list-tile-action>
-        <v-list-tile-sub-title>Houston, Texas</v-list-tile-sub-title>
-        <v-list-tile-sub-title>{{ volunteersNeeded }} Volunteers Needed</v-list-tile-sub-title>
+        <v-list-tile-sub-title>{{ address }}</v-list-tile-sub-title>
+        <v-list-tile-sub-title>{{ volNeeded }} Volunteers Needed</v-list-tile-sub-title>
       </v-list-tile-action>
     </v-list-tile>
   </v-card-text>
@@ -23,7 +23,7 @@
 import Alert from './Alert';
 
 export default {
-  props: ['name', 'date', 'volunteersNeeded', 'signedUp'],
+  props: ['name', 'date', 'volNeeded', 'address'],
   components: {
     Alert
   },

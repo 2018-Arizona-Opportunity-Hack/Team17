@@ -15,7 +15,7 @@
     </v-container>
     <v-container>
       <h2>Upcoming Events</h2>
-      <EventList />
+      <EventList moreButton="true" number="1"/>
     </v-container>
   </div>
 </template>

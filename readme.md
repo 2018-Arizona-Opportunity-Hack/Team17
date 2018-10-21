@@ -22,7 +22,7 @@ Schema:
   email
   admin
   address
-  zipcodeW
+  zipcode
   showedup
   signedup
   endorsements
