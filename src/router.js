@@ -68,7 +68,6 @@ router.beforeEach((to, from, next) => {
       next();
     }
   } else if (to.matched.some(record => record.meta.requiresAdmin)) {
-    if (firebase.auth().currentUser) {
     // {
     //   email
     //   admin
@@ -78,6 +77,18 @@ router.beforeEach((to, from, next) => {
     //   signedup
     //   endorsements
     // }
+
+    // {
+    //   name
+    //   description
+    //   address
+    //   zipcode
+    //   volNeeded
+    //   waitList
+    //   list
+    // }
+    
+    if (firebase.auth().currentUser) {
       db.collection('users').where('email', '==', firebase.auth().currentUser.email).get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {

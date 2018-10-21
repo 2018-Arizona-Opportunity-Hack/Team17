@@ -12,26 +12,28 @@ Ideas:
 - Form to add event with details and range of needed volunteers
 - Admin portion has charts and data with the number of hours that each person has done with rate that they show up.
 - Technologies:
-Vue: frontend website
--Vuetify: Design
--Vue-ChartsJS
-Twilio: Text & Call ($0.0075 a text)
+	-Vue: frontend website
+	-Vuetify: Design
+	-Vue-ChartsJS
+	-Twilio: Text & Call ($0.0075 a text)
 
 Schema:
-{
-	“volunteer”: {
-		“preferences”: {
-			“priority”: (In order){”text”, “call”, “email”},
-			“availability”: {
-				“from”: “10:00am”(date object),
-				“to”: “12:00pm”
-			}
-
-		},
-		“information”: {
-			“email”: “test@test.com”,
-			“phoneNumber”: ”4802752729”
-			“name”: “Jeff”
-		}
-	}
+`{
+  email
+  admin
+  address
+  zipcodeW
+  showedup
+  signedup
+  endorsements
 }
+
+{
+  name
+  description
+  address
+  zipcode
+  volNeeded
+  waitList
+  list
+}`
