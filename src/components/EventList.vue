@@ -1,7 +1,10 @@
 <template>
   <v-container>
     <v-card>
-      <div v-on:click="debug(event.event_id)" v-for="event in events.slice(0, number)">
+      <!-- <router-link class="secondary-content" :to = "{name: 'EventInfo', params: {event_id: event.event_id}}">
+            <v-icon>home</v-icon>
+      </router-link> -->
+      <div @click="goTo(event.event_id, 'EventInfo')" v-for="event in events.slice(0, number)">
         <Event  :key="event.event_id" v-bind:name="event.name" v-bind:date="event.date" v-bind:volunteersNeeded="event.volNeeded" v-bind:address="event.address"/>
         <v-divider></v-divider>
       </div>
@@ -45,8 +48,8 @@ export default {
   props: ['number', 'moreButton'],
   methods: {
     ...mapGetters(["getEvents"]),
-    debug(event) {
-      console.log(event);
+    goTo(event, rName) {
+      this.$router.push({name: rName, params: {event_id: event}})
     }
   }
 }
