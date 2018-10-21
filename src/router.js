@@ -1,27 +1,61 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-
+import firebase from 'firebase';
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: Home
+      path:'/',
+      name: 'Home',
+      component: () => import('./views/Home.vue'),
     },
     {
-      path: '/signup',
-      name: 'signup',
-      component: () => import('./views/Signup.vue')
+      path:'/signup',
+      name: 'Signup',
+      component: () => import('./views/Signup.vue'),
+      meta: {
+        requiresGuest: true
+      }
     },
     {
-      path: '/login',
-      name: 'login',
-      component: () => import('./views/Login.vue')
-    }
+      path:'/login',
+      name: 'Login',
+      component: () => import('./views/Login.vue'),
+      meta: {
+        requiresGuest: true
+      }
+    },
   ]
-})
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!firebase.auth().currentUser) {
+      next({
+        path: '/login',
+        query: {
+          redirect: to.fullPath
+        }
+      });
+    } else {
+      next();
+    }
+  } else if (to.matched.some(record => record.meta.requiresGuest)) {
+    if (firebase.auth().currentUser) {
+      next({
+        path: '/',
+        query: {
+          redirect: to.fullPath
+        }
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
+export default router;

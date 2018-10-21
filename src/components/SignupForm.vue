@@ -25,9 +25,7 @@
         label="Confirm Password"
         placeholder="123eyesonme"
         box
-        :append-icon="show ? 'visibility_off' : 'visibility'"
-        :type="show ? 'text' : 'password'"
-        @click:append="show = !show"
+        type="password"
       ></v-text-field>
     </v-flex>
     <v-btn v-on:click="register" color="success">Signup</v-btn>
@@ -57,7 +55,7 @@ export default {
         .then(
           user => {
             console.log(user);
-            alert(`Signed up as ${user.email}`);
+            alert(`Signed up as ${user.user.email}`);
             this.$router.go({ path: this.$router.path });
           },
           err => {

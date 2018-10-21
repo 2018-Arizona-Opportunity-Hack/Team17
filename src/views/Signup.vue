@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="signupCard">
     <v-card>
       <v-card-title primary-title>
         <v-container>
@@ -21,6 +21,9 @@ export default {
 </script>
 
 <style>
+.signupCard {
+  margin-top: 85px;
+}
 .signupHeader {
   padding-bottom: 35px;
 }

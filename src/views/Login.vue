@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="loginCard">
     <v-card>
       <v-card-title primary-title>
         <v-container>
@@ -23,5 +23,8 @@ export default {
 <style>
 .loginHeader {
   padding-bottom: 35px;
+}
+.loginCard {
+  margin-top: 85px;
 }
 </style>
