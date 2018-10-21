@@ -7,6 +7,8 @@ import db from './components/firebaseInit';
 import firebase from 'firebase';
 Vue.use(Router)
 
+const uuidv1 = require('uuid/v1');
+
 let router = new Router({
   mode: 'history',
   routes: [
@@ -25,11 +27,11 @@ let router = new Router({
       name: 'EventInfo',
       component: () => import('./views/EventInfo.vue'),
     },
-    {
-      path:'/events/:event_id/Signup',
-      name: 'EventSignup',
-      component: () => import('./views/AddEvent.vue'),
-    },
+    // {
+    //   path:'/events/:event_id/Signup',
+    //   name: 'EventSignup',
+    //   component: () => import('./views/AddEvent.vue'),
+    // },
     {
       path:'/signup',
       name: 'Signup',
@@ -53,8 +55,6 @@ let router = new Router({
       meta: {
         requiresAdmin: true
       }
-      }
-    }
     }
   ]
 });
@@ -124,14 +124,9 @@ router.beforeEach((to, from, next) => {
           }
         })
       })
-      let uuid = "";
-      for(var i = 0; i < 6; i++) {
-        uuid += dec_to_bho(Math.floor(Math.random()*16),'H');
-      }
       db.collection('volunteers').add({
-        volunteer_id: uuid,
-        email: this.email
-      })
+        volunteer_id: uuidv1(),
+        email: firebase.auth().currentUser.email
       })
     } else {
       next();

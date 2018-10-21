@@ -41,9 +41,10 @@
 </template>
 
 <script>
-    import db from '../commit/firebaseInit'
+    import db from '../components/firebaseInit'
+    const uuidv1 = require('uuid/v1');
     export default {
-      name: 'NewEvent',
+      name: 'Admin',
       data () {
         return {
           event_id: null,
@@ -54,14 +55,12 @@
           zipcode: null,
           address: null,
           volNeeded: null,
-
         }
       },
       methods: {
         newEvent () {
-          db.collection('events').add({
-            // MAKE AN RNG FOR THE EVENT ID FOR THIS ONE
-            event_id: this.event_id,
+            db.collection('events').add({
+            event_id: uuidv1(),
             name: this.name,
             volNeeded: this.volNeeded,
             position: this.position,
@@ -80,3 +79,8 @@
       }
     }
 </script>
+<style>
+  #NewEvent {
+    padding-top: 100px;
+  }
+</style>

@@ -11,6 +11,7 @@
         <v-card-actions>
           <v-btn to="/Events" class="btn grey">Back</v-btn>
           <v-btn :to="{ name: 'EventSignup', params: { event_id: event_id }}" class="btn-floating btn-large red">
+
             <v-icon>home</v-icon>
           </v-btn>
         </v-card-actions>
@@ -48,6 +49,7 @@ export default {
             vm.zipcode = doc.data().zipcode;
             vm.volNeeded = doc.data().volNeeded;
             vm.date = doc.data().date;
+            vm.organization = doc.date().date;
           });
         });
       });
@@ -70,6 +72,7 @@ export default {
             this.zipcode = doc.data().zipcode;
             this.volNeeded = doc.data().volNeeded;
             this.date = doc.data().date;
+            this.organization = doc.data().date;
           });
         });
     },
