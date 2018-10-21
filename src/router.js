@@ -1,5 +1,6 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
+import db from './components/firebaseInit';
 import firebase from 'firebase';
 Vue.use(Router)
 
@@ -63,6 +64,18 @@ router.beforeEach((to, from, next) => {
           redirect: to.fullPath
         }
       });
+    } else {
+      next();
+    }
+  } else if (to.matched.some(record => record.meta.requiresAdmin)) {
+    if (firebase.auth().currentUser) {
+// {
+//   email
+//   admin
+//   eventsthey
+// }
+      db.collection('users').where('email', '==', firebase.auth().currentUser.email).get()
+      .then()
     } else {
       next();
     }
