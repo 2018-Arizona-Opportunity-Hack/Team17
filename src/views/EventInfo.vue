@@ -1,21 +1,23 @@
 <template>
   <div id="EventInfo">
-    <ul class="collection with-header">
-      <li class="collection-header"><h4>{{name}}</h4></li>
-      <li class="collection-item">event ID#: {{event_id}} </li>
-      <li class="collection-item">description: {{description}}</li>
-      <li class="collection-item">address: {{address}}</li>
-      <li class="collection-item">zipcode: {{zipcode}}</li>
+    <v-container>
+      <v-card style="padding: 30px">
+        <h1>{{name}}</h1>
+        <p>event ID#: {{event_id}}</p><br>
+        <p>description: {{description}}</p><br>
+        <p>address: {{address}}</p><br>
+        <p>zipcode: {{zipcode}}</p><br>
+        <!-- <button @click="deleteevent" class="btn red">Delete</button> -->
+        <v-card-actions>
+          <v-btn to="/Events" class="btn grey">Back</v-btn>
+          <v-btn :to="{ name: 'EventSignup', params: { event_id: event_id }}" class="btn-floating btn-large red">
+            <v-icon>home</v-icon>
+          </v-btn>
+        </v-card-actions>
 
-    </ul>
-    <router-link to="/Events" class="btn grey">Back</router-link>
-    <!-- <button @click="deleteevent" class="btn red">Delete</button> -->
+      </v-card>
+    </v-container>
 
-    <div class="fixed-action-btn">
-      <router-link v-bind:to="{ name: 'EventSignup', params: { event_id: event_id }}" class="btn-floating btn-large red">
-        <v-icon>home</v-icon>
-      </router-link>
-    </div>
   </div>
 </template>
 
