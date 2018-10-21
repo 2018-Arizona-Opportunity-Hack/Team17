@@ -51,7 +51,7 @@ def compute_distance_matrix(R, T, loop=[0, 1, 2]):
 
     ns, cs = compute_rank_and_size(T)
     print(ns, cs)
-    G, S = dfmf.dfmf(R, T, ns, cs, init_typ="random_c", compute_err=True, max_iter=10,
+    G, S = dfmf.dfmf(R, T, ns, cs, init_typ="random", compute_err=True, max_iter=5,
                 system_eps=None)
     # compute a loop
     C = 1.0
@@ -80,7 +80,7 @@ def cluster_tsne(D, dim=2, THRESHOLD=10000):
         TSNE clusters the data using a matrix D.
         Returns the cluster's coordinate pairs in the low dimensional embedding.
     """
-    cost_func = "barnes_hut" if D.shape[0] > THRESHOLD else "exact"
+    cost_func = "barnes_hut" if D.shape[0] >= THRESHOLD else "exact"
     tsne = TSNE(n_components=dim, method=cost_func)
     embedding = tsne.fit_transform(D) # gets the embedding
     return embedding

@@ -217,7 +217,7 @@ app.post(/[T,t]imer/, (req, res) => {
     var uuids = [];
     var qvols = []; // questionable volunteers array
     var alt = []; // alternative volunteers
-    var data = database.ref("/users").once('value').then((snapshot) => {
+    var data = database.ref().once('value').then((snapshot) => {
       volunteers = snapshot.val()["volunteers"];
       // compute the most reliable volunteers
       var maxEvents = 0;

@@ -146,4 +146,4 @@ def synth_dfmf_test(N, upper_size=1000, lower_size=50):
     plt.show()
 
 if __name__ == "__main__":
-    synth_dfmf_test(3)
+    synth_dfmf_test(3, lower_size=500, upper_size=1000)
