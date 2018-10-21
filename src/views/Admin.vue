@@ -1,48 +1,69 @@
 <template>
-  <div id="NewEvent">
-    <h3>Make a New Event</h3>
-    <div class="row">
-    <form @submit.prevent="newEvent" class="col s12">
-      <div class="row">
-        <div class="input-field col s12">
-          <input type="text" v-model="name" required>
-          <label>Title of Event</label>
+
+  <v-container id="NewEvent">
+    <v-card>
+      <v-container>
+          <h3>Make a New Event</h3>
+
+          <v-flex xs36 sm36 md18>
+            <v-text-field
+              label="Name"
+              v-model="name"
+              placeholder="Dog Shelter"
+              box
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs36 sm36 md18>
+            <v-text-field
+              label="Position"
+              v-model="position"
+              placeholder="Dog Brusher"
+              box
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs36 sm36 md18>
+            <v-text-field
+              label="organization"
+              v-model="organization"
+              placeholder="Some ORG"
+              box
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs36 sm36 md18>
+            <v-text-field
+              label="Address"
+              v-model="address"
+              placeholder="2870 North Jade Pl."
+              box
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs36 sm36 md18>
+            <v-text-field
+              label="Zipcode"
+              v-model="zipcode"
+              placeholder="85287"
+              box
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs36 sm36 md18>
+            <v-text-field
+              label="Volunteers Needed"
+              v-model="volNeeded"
+              placeholder="13"
+              box
+            ></v-text-field>
+          </v-flex>
+          <div class="row">
+          <v-btn v-on:click="newEvent()" color="success">Create</v-btn>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input type="text" v-model="organization" required>
-          <label>organization</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input type="text" v-model="address" required>
-          <label>address</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input type="text" v-model="zipcode" required>
-          <label>zipcode</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input type="text" v-model="volNeeded" required>
-          <label>Volunteers Needed</label>
-        </div>
-      </div>
-      <button type="submit" class="btn">Submit</button>
-      <router-link to="/" class="btn grey">Cancel</router-link>
-    </form>
-  </div>
-  </div>
+      </v-container>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
     import db from '../components/firebaseInit'
-    const uuidv1 = require('uuid/v1');
+    import uuidv1 from 'uuid/v1'
     export default {
       name: 'Admin',
       data () {
@@ -59,6 +80,10 @@
       },
       methods: {
         newEvent () {
+            if(this.name == null || this.volNeeded == null || this.position == null || this.address == null || this.zipcode == null|| this.organization == null) {
+              alert("Please fill in all the fields");
+              return;
+            }
             db.collection('events').add({
             event_id: uuidv1(),
             name: this.name,

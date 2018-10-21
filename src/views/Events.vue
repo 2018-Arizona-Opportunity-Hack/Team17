@@ -19,7 +19,7 @@ export default {
 </script>
 <style>
   .events {
-    padding-top: 50px;
+    padding-top: 100px;
   }
 </style>
 <!-- // <script>
