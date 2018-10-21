@@ -122,8 +122,12 @@ router.beforeEach((to, from, next) => {
           }
         })
       })
+      let uuid = "";
+      for(var i = 0; i < 6; i++) {
+        uuid += dec_to_bho(Math.floor(Math.random()*16),'H');
+      }
       db.collection('volunteers').add({
-        volunteer_id: ,
+        volunteer_id: uuid,
         email: this.email,
       })
     } else {
