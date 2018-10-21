@@ -13,9 +13,9 @@
       <v-btn v-if="!isLoggedIn" :to="{
         name: 'Login'
       }" flat>Login</v-btn>
-      <v-btn v-if="!isLoggedIn" :to="{
+      <!-- <v-btn v-if="!isLoggedIn" :to="{
         name: 'Signup'
-      }" flat>Signup</v-btn>
+      }" flat>Signup</v-btn> -->
       <v-menu v-if="isLoggedIn" offset-y>
         <v-btn slot="activator" flat>{{ currentUser }}</v-btn>
         <v-list>
@@ -49,7 +49,7 @@ export default {
   created: function () {
     if (firebase.auth().currentUser) {
       this.isLoggedIn = true;
-      this.currentUser = firebase.auth().currentUser.email; 
+      this.currentUser = firebase.auth().currentUser.email;
     }
   },
   methods: {

@@ -4,6 +4,8 @@
       <v-card-title primary-title>
         <v-container>
           <h3 class="headline loginHeader mb-0">Login</h3>
+          <h4 class>Don't have an account? <a href="\signup">Signup</a></h4>
+          <br>
           <LoginForm />
         </v-container>
       </v-card-title>
@@ -22,7 +24,7 @@ export default {
 
 <style>
 .loginHeader {
-  padding-bottom: 35px;
+  padding-bottom: 10px;
 }
 .loginCard {
   margin-top: 85px;

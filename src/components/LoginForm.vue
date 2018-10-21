@@ -20,6 +20,8 @@
       ></v-text-field>
     </v-flex>
     <v-btn v-on:click="login" color="success">Login</v-btn>
+    <!--TRIED REALLY HARD TO GET THIS WORKING BUT IT DIDNT WORK REEE  -->
+    <!-- <input v-on:keyup.enter="login"> -->
   </div>
 </template>
 
