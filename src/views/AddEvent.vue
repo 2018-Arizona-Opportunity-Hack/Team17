@@ -34,15 +34,19 @@
       name: 'Signup',
       data () {
         return {
-          employee_id: null,
+          event_id: null,
           name: null,
-          dept: null,
-          position: null
+          zipcode: null
         }
       },
       methods: {
         saveEvent () {
           db.collection('events').add({
+            event_id: this.events,
+            name: this.name,
+            zipcode: this.zipcode,
+          })
+          db.collection('volunteers').add({
             event_id: this.events,
             name: this.name,
             zipcode: this.zipcode,

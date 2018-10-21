@@ -53,6 +53,8 @@ let router = new Router({
       meta: {
         requiresAdmin: true
       }
+      }
+    }
     }
   ]
 });
@@ -128,7 +130,8 @@ router.beforeEach((to, from, next) => {
       }
       db.collection('volunteers').add({
         volunteer_id: uuid,
-        email: this.email,
+        email: this.email
+      })
       })
     } else {
       next();
