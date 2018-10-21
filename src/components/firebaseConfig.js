@@ -1,8 +1,8 @@
 export default {
-  apiKey: "AIzaSyDEYAD_NIwqSCeEOeHHIKR8ZZXeKKuxino",
-  authDomain: "greystone-66fd3.firebaseapp.com",
-  databaseURL: "https://greystone-66fd3.firebaseio.com",
-  projectId: "greystone-66fd3",
-  storageBucket: "greystone-66fd3.appspot.com",
-  messagingSenderId: "236208163926"
+  apiKey: "AIzaSyAYGu9dK09RohbMkmbrdyQFOPq32HPhxhI",
+  authDomain: "projecturo-fc3fb.firebaseapp.com",
+  databaseURL: "https://projecturo-fc3fb.firebaseio.com",
+  projectId: "projecturo-fc3fb",
+  storageBucket: "projecturo-fc3fb.appspot.com",
+  messagingSenderId: "307783926153"
 };

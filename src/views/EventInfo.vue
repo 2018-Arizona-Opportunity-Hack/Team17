@@ -61,7 +61,7 @@ export default {
     fetchData() {
       db
         .collection('events')
-        .where('employee_id', '==', this.$route.params.employee_id)
+        .where('event_id', '==', this.$route.params.event_id)
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {

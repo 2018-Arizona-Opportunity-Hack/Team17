@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+//import Events from '@/views/Events'
 import db from './components/firebaseInit';
 import firebase from 'firebase';
 Vue.use(Router)
@@ -87,7 +88,7 @@ router.beforeEach((to, from, next) => {
     //   waitList
     //   list
     // }
-    
+
     if (firebase.auth().currentUser) {
       db.collection('users').where('email', '==', firebase.auth().currentUser.email).get()
       .then(querySnapshot => {
