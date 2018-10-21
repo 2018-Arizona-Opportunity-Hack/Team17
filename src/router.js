@@ -12,6 +12,11 @@ let router = new Router({
       component: () => import('./views/Home.vue'),
     },
     {
+      path:'/events',
+      name: 'Events',
+      component: () => import('./views/Events.vue'),
+    },
+    {
       path:'/signup',
       name: 'Signup',
       component: () => import('./views/Signup.vue'),
@@ -27,6 +32,14 @@ let router = new Router({
         requiresGuest: true
       }
     },
+    {
+      path:'/admin',
+      name:'Admin',
+      component: () => import('./views/Admin.vue'),
+      meta: {
+        requiresAdmin: true
+      }
+    }
   ]
 });
 

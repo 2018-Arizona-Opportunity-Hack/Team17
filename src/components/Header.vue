@@ -5,8 +5,10 @@
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn flat :to="{
         name: 'Home'
-      }">Home</v-btn>
-      <v-btn flat>Events</v-btn>
+      }" exact>Home</v-btn>
+      <v-btn flat :to="{
+        name: 'Events'
+      }" exact>Events</v-btn>
       <!-- <v-btn flat>Admin</v-btn> -->
       <v-btn v-if="!isLoggedIn" :to="{
         name: 'Login'
@@ -21,7 +23,7 @@
             v-for="(item, index) in items"
             :key="index"
           >
-            <v-list-tile-title v-if="item.title !== 'Log out'">{{ item.title }}</v-list-tile-title>
+            <v-list-tile-title v-if="item.title !== 'Log out'" :to="{ name: item.link }">{{ item.title }}</v-list-tile-title>
             <v-list-tile-title v-if="item.title == 'Log out'" v-on:click="logout()">{{ item.title }}</v-list-tile-title>
           </v-list-tile>
         </v-list>
