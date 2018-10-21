@@ -106,7 +106,7 @@ def send_embedding():
     R = generate_constraints(json)
 
     C = compute_distance_matrix(R, T)
-    y1, y2 = cluster_tsne(C)
+    ydata = cluster_tsne(C)
 
 def synth_dfmf_test(N, upper_size=1000, lower_size=50):
     sizes = np.random.randint(lower_size, high=upper_size, size=N)
@@ -125,15 +125,24 @@ def synth_dfmf_test(N, upper_size=1000, lower_size=50):
     C = compute_distance_matrix(R, T)
     print("FINISHED COMPUTING C")
     ydata = cluster_tsne(C, dim=2)
+
     print("FINISHED TSNE")
     plt.plot(ydata[:,0],ydata[:,1], "ro")
     plt.title("FIGURE 2")
     plt.show()
+
     print("CLUSTERING")
-    data = hdb_scan.hdb_scan(ydata)
-    plt.plot(data, "ro")
-    plt.title("HDB SCAN")
+    clusters = hdb_scan.hdb_scan(ydata)
+    tmp = set(clusters)
+    print(tmp)
+    cls_dict = {x:[] for x in tmp}
+    for i in range(ydata.shape[0]):
+        cls_dict[clusters[i]].append(ydata[i])
+
+    for k in tmp:
+        y = np.asarray(cls_dict[k])
+        plt.plot(y[:, 0], y[:, 1], "o")
     plt.show()
 
 if __name__ == "__main__":
-    synth_dfmf_test(5)
+    synth_dfmf_test(3)

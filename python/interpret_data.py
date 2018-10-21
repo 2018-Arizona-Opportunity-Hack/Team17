@@ -51,7 +51,7 @@ def compute_distance_matrix(R, T, loop=[0, 1, 2]):
 
     ns, cs = compute_rank_and_size(T)
     print(ns, cs)
-    G, S = dfmf.dfmf(R, T, ns, cs, init_typ="random", compute_err=True, max_iter=10,
+    G, S = dfmf.dfmf(R, T, ns, cs, init_typ="random_c", compute_err=True, max_iter=10,
                 system_eps=None)
     # compute a loop
     C = 1.0
